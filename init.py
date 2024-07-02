@@ -18,7 +18,7 @@ def healthBars(x1,x2):
     
 bg = pygame.image.load("assets/fondo_pyz.png")
 
-healthBody = pygame.image.load("assets/healthBars.png")
+healthBody = pygame.image.load("assets/health_bars.png")
 
 txt = pygame.font.Font('freesansbold.ttf', 32)
 tempo = ["60"]
