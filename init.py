@@ -8,19 +8,23 @@ WINDOW_HEIGHT = 600
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Juego de Peleas")
 
-def healthBars(x1,x2):
-    
+#load resources
+bg = pygame.image.load("assets/fondo_pyz.png")
+health_body = pygame.image.load("assets/health_bars.png")
+txt = pygame.font.Font('freesansbold.ttf', 32)
+
+def health_bars(x1,x2):
+
     pygame.draw.rect(screen,green,(65,30,310,25))
     pygame.draw.rect(screen,red,(430,30,310,25))
-    
+
     pygame.draw.rect(screen,red,(65,30,x1-310,25))
     pygame.draw.rect(screen,green,(430,30,x2,25))
-    
-bg = pygame.image.load("assets/fondo_pyz.png")
 
-healthBody = pygame.image.load("assets/health_bars.png")
+def draw_bg():
+    screen.blit(bg, (0, 0))
 
-txt = pygame.font.Font('freesansbold.ttf', 32)
+
 tempo = ["60"]
 tempoCount = 60
 
@@ -36,40 +40,37 @@ sec = 0
 
 while run:
 
-    screen.blit(bg,(0,0))
-    
     timer.tick(fps)
-    
-    sec+= timer.tick(fps)
-    tempoRend = txt.render(tempo[0], True,black)
-    
+
+    sec += timer.tick(fps)
+    tempo_bend = txt.render(tempo[0], True, black)
+
     # Maneja eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        
+
         # Eventos del teclado
         if event.type == pygame.KEYDOWN:
-            
+
             if event.key == pygame.K_p:
-                
-                x2-=10  
-                
-            if event.key == pygame.K_o and x1<620:
-                
-                x1+=10  
-                
+
+                x2 -= 10
+
+            if event.key == pygame.K_o and x1 < 620:
+
+                x1 += 10
+
     if sec > 1000:
-        
-        sec-=1000        
+
+        sec -= 1000
         del tempo[0]
-        tempoCount-=1
+        tempoCount -= 1
         tempo.append(str(tempoCount))
-         
-    healthBars(x1,x2)       
-    screen.blit(healthBody,(65,30))    
-    screen.blit(healthBody,(430,30))
-    screen.blit(tempoRend,(380,50))        
-    
- 
+
+    health_bars(x1, x2)
+    screen.blit(health_body, (65, 30))
+    screen.blit(health_body, (430, 30))
+    screen.blit(tempo_bend, (380, 50))
+
     pygame.display.flip()
