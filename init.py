@@ -16,7 +16,7 @@ def healthBars(x1,x2):
     pygame.draw.rect(screen,red,(65,30,x1-310,25))
     pygame.draw.rect(screen,green,(430,30,x2,25))
     
-bg = pygame.image.load("assets/fondoPyz.png")
+bg = pygame.image.load("assets/fondo_pyz.png")
 
 healthBody = pygame.image.load("assets/healthBars.png")
 
