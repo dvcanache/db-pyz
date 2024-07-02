@@ -1,4 +1,5 @@
 import pygame
+from characters import Pj
 
 pygame.init()
 
@@ -25,6 +26,8 @@ def draw_bg():
     screen.blit(bg, (0, 0))
 
 
+pj = Pj(100,360)
+
 tempo = ["60"]
 tempoCount = 60
 
@@ -45,6 +48,11 @@ while run:
     sec += timer.tick(fps)
     tempo_bend = txt.render(tempo[0], True, black)
 
+    #Drawing
+    draw_bg()
+
+    pj.move(WINDOW_WIDTH)
+    pj.draw(screen)
     # Maneja eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
