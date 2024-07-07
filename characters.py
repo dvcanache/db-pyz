@@ -2,15 +2,13 @@ import pygame
 
 class Pj():
     def __init__(self, x,y):
-        
         self.rect = pygame.Rect((x,y,80,200))
-        
-        
-        
+        self.jump_vel = 0
+        self.jump=False
 
-    def move(self, screen_width):
+    def move(self, screen_width, screen_height):
         SPEED = 15
-        
+        GRAVITY = 2
         dx = 0
         dy = 0
 
@@ -24,19 +22,29 @@ class Pj():
         if key[pygame.K_d]:
             dx+=SPEED
 
-        #Margin
+        #Jump
+        if key[pygame.K_w] and self.jump==False:
+            self.jump_vel = -30
+            self.jump=True
+        
+        self.jump_vel += GRAVITY
+        dy += self.jump_vel
+            
 
+        #Margin
         if self.rect.left + dx < 0:
             dx = -self.rect.left
         if self.rect.right + dx > screen_width:
             dx = screen_width - self.rect.right
+        if self.rect.bottom + dy > screen_height - 40:
+            self.jump_vel = 0
+            self.jump = False
+            dy = screen_height - 40 - self.rect.bottom
 
         #Update Player
         self.rect.x += dx
         self.rect.y += dy
-        
-        print(self.rect.x)
-        
+                
     def attack_lowkick(self,screen_,red_,left=False):
         
         if left==True:

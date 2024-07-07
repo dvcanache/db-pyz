@@ -26,7 +26,7 @@ def draw_bg():
     screen.blit(bg, (0, 0))
 
 
-pj = Pj(300,360)
+pj = Pj(200,360)
 
 tempo = ["60"]
 tempoCount = 60
@@ -42,16 +42,13 @@ run = True
 sec = 0
 
 while run:
-
-    
-    sec += timer.tick(fps)
-    
+    sec += timer.tick(fps)   
     tempo_bend = txt.render(tempo[0], True, black)
 
     #Drawing
     draw_bg()
 
-    pj.move(WINDOW_WIDTH)
+    pj.move(WINDOW_WIDTH, WINDOW_HEIGHT)
     pj.draw(screen)
     manikin = pygame.draw.rect(screen,green,(500,360,80,200))
     
@@ -63,26 +60,22 @@ while run:
 
         # Eventos del teclado
         if event.type == pygame.KEYDOWN:
-            
             if event.key == pygame.K_a:
-                
                 l_key=0
+
             if event.key == pygame.K_d:
-                
                 l_key=1   
             
             if event.key == pygame.K_p:
-
                 x2 -= 10
 
             if event.key == pygame.K_o and x1 < 620:
-
                 x1 += 10
                 
             if event.key == pygame.K_m:
-                
                 if l_key==0:
                     coli = pj.attack_lowkick(screen,red,left=True)
+                
                 else:
                     coli = pj.attack_lowkick(screen,red,left=False)
             
@@ -90,17 +83,17 @@ while run:
                     x2 -= 15  
                     
             if event.key == pygame.K_n:
-                
                 if l_key==0:
                     coli2 = pj.attack_punch(screen,red,left=True)
+                
                 else:
                     coli2 = pj.attack_punch(screen,red,left=False)
+                
                 if coli2.colliderect(manikin):
                     x2 -= 5        
                 
                 
     if sec > 1000:
-
         sec -= 1000
         del tempo[0]
         tempoCount -= 1
