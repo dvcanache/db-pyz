@@ -1,5 +1,6 @@
 import pygame
 from characters import Pj
+from bot import Bot
 
 pygame.init()
 
@@ -14,30 +15,29 @@ bg = pygame.image.load("assets/fondo_pyz.png")
 health_body = pygame.image.load("assets/health_bars.png")
 txt = pygame.font.Font('freesansbold.ttf', 32)
 
-def health_bars(x1,x2):
+def health_bars(health_bar_left,health_bar_right):
 
     pygame.draw.rect(screen,green,(65,30,310,25))
     pygame.draw.rect(screen,red,(430,30,310,25))
 
-    pygame.draw.rect(screen,red,(65,30,x1-310,25))
-    pygame.draw.rect(screen,green,(430,30,x2,25))
+    pygame.draw.rect(screen,red,(65,30,health_bar_left-310,25))
+    pygame.draw.rect(screen,green,(430,30,health_bar_right,25))
 
 def draw_bg():
     screen.blit(bg, (0, 0))
 
 
 pj = Pj(200,360)
-
+bot = Bot(500,360)
 tempo = ["60"]
 tempoCount = 60
-l_key = 1
 green =(0,255,0)
 red = (255,0,0)
 black=(0,0,0)
 fps = 60
 timer = pygame.time.Clock()
-x1=310
-x2=310
+health_bar_left=310
+health_bar_right=310
 run = True
 sec = 0
 
@@ -48,49 +48,15 @@ while run:
     #Drawing
     draw_bg()
 
-    pj.move(WINDOW_WIDTH, WINDOW_HEIGHT)
+    pj.move(WINDOW_WIDTH, WINDOW_HEIGHT, screen, bot)
     pj.draw(screen)
-    manikin = pygame.draw.rect(screen,green,(500,360,80,200))
+    bot.draw(screen)
     
     # Maneja eventos
     for event in pygame.event.get():
           
         if event.type == pygame.QUIT:
-            run = False
-
-        # Eventos del teclado
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                l_key=0
-
-            if event.key == pygame.K_d:
-                l_key=1   
-            
-            if event.key == pygame.K_p:
-                x2 -= 10
-
-            if event.key == pygame.K_o and x1 < 620:
-                x1 += 10
-                
-            if event.key == pygame.K_m:
-                if l_key==0:
-                    coli = pj.attack_lowkick(screen,red,left=True)
-                
-                else:
-                    coli = pj.attack_lowkick(screen,red,left=False)
-            
-                if coli.colliderect(manikin):
-                    x2 -= 15  
-                    
-            if event.key == pygame.K_n:
-                if l_key==0:
-                    coli2 = pj.attack_punch(screen,red,left=True)
-                
-                else:
-                    coli2 = pj.attack_punch(screen,red,left=False)
-                
-                if coli2.colliderect(manikin):
-                    x2 -= 5        
+            run = False      
                 
                 
     if sec > 1000:
@@ -99,7 +65,7 @@ while run:
         tempoCount -= 1
         tempo.append(str(tempoCount))
 
-    health_bars(x1, x2)
+    health_bars(pj.health, bot.health)
     screen.blit(health_body, (65, 30))
     screen.blit(health_body, (430, 30))
     screen.blit(tempo_bend, (380, 50))
