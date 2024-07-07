@@ -42,6 +42,7 @@ run = True
 sec = 0
 
 while run:
+    # Time manager
     sec += timer.tick(fps)   
     tempo_bend = txt.render(tempo[0], True, black)
 
@@ -58,10 +59,11 @@ while run:
         if event.type == pygame.QUIT:
             run = False      
                 
-                
+    # Time counter            
     if sec > 1000:
         sec -= 1000
-        del tempo[0]
+        if tempoCount>0:
+            del tempo[0]
         tempoCount -= 1
         tempo.append(str(tempoCount))
 
