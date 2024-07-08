@@ -12,7 +12,6 @@ class Pj():
         self.rect = pygame.Rect((x,y,80,200))
         self.health = 310
 
-
     def move(self, screen_width, screen_height,screen,target,):
         SPEED = 15
         GRAVITY = 2
@@ -44,16 +43,11 @@ class Pj():
                 self.attack_punch(screen, (200,0,0), target)
             else:    
                 self.attack_punch(screen, (200,0,0), target)
-            
-            
-            
+    
         if key[pygame.K_k]:
-            
-            
-            
-            self.attack_lowkick(screen,(200,0,0),target)
-            #print(bot.rect[0])
 
+            self.attack_lowkick(screen,(200,0,0),target)
+            
         #Margin
         if self.rect.left + dx < 0:
             dx = -self.rect.left
@@ -65,9 +59,7 @@ class Pj():
             self.jump_vel = 0
             self.jump = False
             dy = screen_height - 40 - self.rect.bottom
-        
-        #bot = ano()
-        
+  
         if self.rect[0]	> bot.rect[0]:
             
             del self.orientation[0]
@@ -76,17 +68,11 @@ class Pj():
         else:
             del self.orientation[0]
             self.orientation.append("left")
-            
-        #print(self.rect)
+
         #Update Player
         self.rect.x += dx
         self.rect.y += dy
-        
-        
-    
-        
-    
-                
+       
     def attack_lowkick(self,screen, color, target):
 
             orientation = self.orientation[0]
@@ -96,7 +82,6 @@ class Pj():
                 atacking_rect= pygame.draw.rect(screen,color,(self.rect.x-40,self.rect.y+160,40,40))
             if atacking_rect.colliderect(target.rect) and target.health > 0:
                 target.health -= 15
-                
                 
     def attack_punch(self,screen,color,target):
             
@@ -108,7 +93,6 @@ class Pj():
             if atacking_rect.colliderect(target.rect) and target.health > 0:
                 target.health -= 5
                 
-
     def draw(self, surf):
         pygame.draw.rect(surf, (0,0,200),self.rect)
         
