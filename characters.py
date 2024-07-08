@@ -42,6 +42,7 @@ class Pj():
     
             if key[pygame.K_k]:
                 self.attack_lowkick(screen,(200,0,0),target)
+                
         #If not attacking
         self.attacking = False
 
