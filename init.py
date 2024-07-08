@@ -36,8 +36,6 @@ red = (255,0,0)
 black=(0,0,0)
 fps = 60
 timer = pygame.time.Clock()
-health_bar_left=310
-health_bar_right=310
 run = True
 sec = 0
 
