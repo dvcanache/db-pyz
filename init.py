@@ -15,6 +15,10 @@ bg = pygame.image.load("assets/fondo_pyz.png")
 health_body = pygame.image.load("assets/health_bars.png")
 txt = pygame.font.Font('freesansbold.ttf', 32)
 
+
+def draw_bg():
+    screen.blit(bg, (0, 0))
+
 def health_bars(health_bar_left,health_bar_right):
 
     pygame.draw.rect(screen,green,(65,30,310,25))
@@ -22,9 +26,6 @@ def health_bars(health_bar_left,health_bar_right):
 
     pygame.draw.rect(screen,red,(65,30,health_bar_left-310,25))
     pygame.draw.rect(screen,green,(430,30,health_bar_right,25))
-
-def draw_bg():
-    screen.blit(bg, (0, 0))
 
 
 pj = Pj(200,360)
