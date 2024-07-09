@@ -4,9 +4,9 @@ from bot import Bot
 
 pygame.init()
 
-
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
+
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Juego de Peleas")
 
@@ -14,12 +14,11 @@ pygame.display.set_caption("Juego de Peleas")
 bg = pygame.image.load("assets/fondo_pyz.png")
 health_body = pygame.image.load("assets/health_bars.png")
 txt = pygame.font.Font('freesansbold.ttf', 32)
+
 def draw_bg():
     screen.blit(bg, (0, 0))
 
 def health_bars(health_bar_left,health_bar_right):
-    
-    #pygame.draw.circle(screen,(100,100,0),(400,60),20)
     pygame.draw.rect(screen,green,(65,30,310,25))
     pygame.draw.rect(screen,red,(430,30,310,25))
 
@@ -42,26 +41,27 @@ while run:
     # Time manager
     sec += timer.tick(fps)   
     tempo_bend = txt.render(tempo, True, black)
-    print(timer.get_fps())
     #Drawing
     draw_bg()
 
+    #P;ayer control
     pj.move(WINDOW_WIDTH, WINDOW_HEIGHT, screen, bot)
     pj.draw(screen)
+
+    #Bot control
     bot.draw(screen)
            
-    if pygame.event.get(pygame.QUIT):
-        
+    if pygame.event.get(pygame.QUIT):    
         run=False         
                 
     # Time counter            
     if sec > 1000:
         sec -= 1000
-        if tempoCount>0:
-            
-            tempoCount -= 1
-            tempo = str(tempoCount)
+        if tempoCount>0: 
+         tempoCount -= 1
+         tempo = tempoCount
 
+    #Health bars and tempo counter
     health_bars(pj.health, bot.health)
     screen.blit(health_body, (65, 30))
     screen.blit(health_body, (430, 30))
