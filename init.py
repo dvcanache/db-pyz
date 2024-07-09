@@ -58,8 +58,8 @@ while run:
     if sec > 1000:
         sec -= 1000
         if tempoCount>0: 
-         tempoCount -= 1
-         tempo = tempoCount
+            tempoCount -= 1
+            tempo = str(tempoCount)
 
     #Health bars and tempo counter
     health_bars(pj.health, bot.health)
