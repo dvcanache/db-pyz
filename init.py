@@ -4,10 +4,11 @@ from bot import Bot
 
 pygame.init()
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
 
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Juego de Peleas")
 
 #load resources
@@ -45,7 +46,7 @@ while run:
     draw_bg()
 
     #P;ayer control
-    pj.move(WINDOW_WIDTH, WINDOW_HEIGHT, screen, bot)
+    pj.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, bot)
     pj.draw(screen)
 
     #Bot control
