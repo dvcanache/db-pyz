@@ -18,10 +18,7 @@ class Pj():
         dy = 0
 
         #Key Pressed
-        key = pygame.key.get_pressed()
-       
-        #print(isinstance(self.attacking, int))
-        
+        key = pygame.key.get_pressed()        
         
         # checking attack keys
         for i in range(0,7):
@@ -58,9 +55,6 @@ class Pj():
 
         if key[pygame.K_k]:
             self.attack_lowkick(screen,(200,0,0),target)
-                
-        #If not attacking
-        #self.attacking = False
 
         #Gravity
         self.jump_vel += GRAVITY
