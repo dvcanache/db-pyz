@@ -36,7 +36,10 @@ fps = 60
 timer = pygame.time.Clock()
 run = True
 sec = 0
-
+algo = False
+perro = 0
+block = False
+permitir = False
 while run:
     # Time manager
     sec += timer.tick(fps)   
@@ -44,7 +47,39 @@ while run:
     #Drawing
     draw_bg()
 
-    #P;ayer control
+    #Player control
+    
+    for event in pygame.event.get():
+        
+        if event.type == pygame.QUIT:
+            run = False
+            
+        if event.type == pygame.KEYDOWN:
+            
+            if pygame.key.get_pressed()[pygame.K_l] and block == False and permitir == True:              
+                algo = True
+                stop = True
+        if algo == False:        
+                
+            if pygame.KEYUP and pygame.key.get_pressed()[pygame.K_l]==False:
+                    
+                permitir = True         
+    if algo == True:   
+        perro += 16    
+        if perro < 200:        
+            permitir = False
+            pj.attacks(pygame.K_l,screen, bot)
+        else:
+            pj.attacking_check = False
+            algo = False   
+            perro = 0
+            pj.block = False 
+                
+                
+            
+    print(sec)        
+             
+        
     pj.move(WINDOW_WIDTH, WINDOW_HEIGHT, screen, bot)
     pj.draw(screen)
 
