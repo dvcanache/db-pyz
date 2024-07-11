@@ -4,6 +4,7 @@ from bot import Bot
 
 pygame.init()
 
+#To-do
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
