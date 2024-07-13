@@ -8,7 +8,6 @@ class Pj():
         self.orientation = "left"
         self.rect = pygame.Rect((x,y,80,200))
         self.health = 310
-        self.attacking_keys = [pygame.K_j,pygame.K_k,pygame.K_l,pygame.K_u,pygame.K_i,pygame.K_o,0]
         self.attacking_check = False
         self.attack_delay = pygame.time.Clock()
         self.block = False
@@ -22,22 +21,6 @@ class Pj():
         #Key Pressed
         key = pygame.key.get_pressed()        
         
-        # checking attack keys
-        
-    
-       # for i in range(0,7):
-            
-       #     if key[self.attacking_keys[i]]:
-                
-       #         print(self.attacking_keys)
-                
-       #         self.attacking_check = True
-       #         break
-       #     else:
-       #        self.attacking_check = False
-
-        #If not attacking the player can move
-        
         #Movement
         if self.block == False:
         
@@ -48,17 +31,9 @@ class Pj():
                 dx+=SPEED
 
         #Jump
-        if key[pygame.K_w] and self.jump==False:
-            self.jump_vel = -30
-            self.jump=True
-
-        #Attacks
-        if key[pygame.K_j]:
-            self.attack_punch(screen, (200,0,0), target)
-            
-
-        if key[pygame.K_k]:
-            self.attack_lowkick(screen,(200,0,0),target)
+            if key[pygame.K_w] and self.jump==False:
+                self.jump_vel = -30
+                self.jump=True
 
         #Gravity
         self.jump_vel += GRAVITY
@@ -89,37 +64,33 @@ class Pj():
         
         self.block = True
 
-        key = pygame.key.get_pressed()        
-        
-        # checking attack keys
-        #for i in range(0,7):
-           # if keys == self.attacking_keys[i]:
-                
-                
-                
-                
-        self.attack_lowkick(screen, (200,0,0), target)
-        self.attacking_check = True
-                
+        if keys >=106 and keys <=108:     
+            
+            dmg = keys-105
+            self.attack_lowkick(screen, (200,0,0), target,dmg)
+            self.attacking_check = True
+        else:
+            self.attack_punch(screen, (200,0,0), target)
+            self.attacking_check = True       
                 
         
-    def attack_lowkick(self,screen, color, target):
+    def attack_lowkick(self,screen, color, target, dmg=1):
             orientation = self.orientation
             if orientation == "left":
                 atacking_rect= pygame.draw.rect(screen,color,(self.rect.x+80,self.rect.y+160+self.jump_vel,40,40))
             else:
                 atacking_rect= pygame.draw.rect(screen,color,(self.rect.x-40,self.rect.y+160+self.jump_vel,40,40))
             if atacking_rect.colliderect(target.rect) and target.health > 0:
-                target.health -= 2
+                target.health -= 2*dmg
             
-    def attack_punch(self,screen,color,target):    
+    def attack_punch(self,screen,color,target, dmg=1):    
             orientation = self.orientation
             if orientation == "left":
                 atacking_rect= pygame.draw.rect(screen,color,(self.rect.x+80,self.rect.y+40+self.jump_vel,40,40)) 
             else:
                 atacking_rect= pygame.draw.rect(screen,color,(self.rect.x-40,self.rect.y+40+self.jump_vel,40,40))   
             if atacking_rect.colliderect(target.rect) and target.health > 0:
-                target.health -= 3
+                target.health -= 3*dmg
             
     def draw(self, surf):
         pygame.draw.rect(surf, (0,0,200),self.rect)

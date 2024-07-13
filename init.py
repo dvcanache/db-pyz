@@ -27,6 +27,7 @@ def health_bars(health_bar_left, health_bar_right):
     pygame.draw.rect(screen, red, (65, 30, health_bar_left - 310, 25))
     pygame.draw.rect(screen, green, (430, 30, health_bar_right, 25))
     
+attks = (pygame.K_j,pygame.K_k,pygame.K_l,pygame.K_u,pygame.K_i,pygame.K_o)    
 pj = Pj(200,360)
 bot = Bot(500,360)
 tempo = "60"
@@ -38,11 +39,13 @@ fps = 60
 timer = pygame.time.Clock()
 run = True
 sec = 0
-algo = False
-perro = 0
+delay = False
+delay_count = 0
 block = False
-permitir = False
+enable = True
+l_pressed = False
 while run:
+    
     # Time manager
     sec += timer.tick(fps)   
     tempo_bend = txt.render(tempo, True, black)
@@ -58,30 +61,24 @@ while run:
             
         if event.type == pygame.KEYDOWN:
             
-            if pygame.key.get_pressed()[pygame.K_l] and block == False and permitir == True:              
-                algo = True
-                stop = True
-        if algo == False:        
-                
-            if pygame.KEYUP and pygame.key.get_pressed()[pygame.K_l]==False:
-                    
-                permitir = True         
-    if algo == True:   
-        perro += 16    
-        if perro < 200:        
-            permitir = False
-            pj.attacks(pygame.K_l,screen, bot)
+            ev_k = event.key
+            if ev_k == attks[0] or ev_k == attks[1] or ev_k == attks[2] or ev_k == attks[3] or ev_k == attks[4] or ev_k == attks[5] and enable==True:
+               delay = True
+               llave = ev_k
+
+    if delay == True:   
+        delay_count += 16    
+        if delay_count < 200:        
+            enable = False
+            pj.attacks(llave,screen, bot)
+            pj.block = True
         else:
             pj.attacking_check = False
-            algo = False   
-            perro = 0
-            pj.block = False 
-                
-                
-            
-    print(sec)        
-             
-        
+            delay = False   
+            delay_count = 0
+            pj.block = False
+            enable = True 
+
     pj.move(WINDOW_WIDTH, WINDOW_HEIGHT, screen, bot)
     pj.draw(screen)
 
