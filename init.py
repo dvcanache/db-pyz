@@ -28,6 +28,7 @@ def health_bars(health_bar_left, health_bar_right):
     pygame.draw.rect(screen, red, (65, 30, health_bar_left - 310, 25))
     pygame.draw.rect(screen, green, (430, 30, health_bar_right, 25))
     
+attks = (pygame.K_j,pygame.K_k,pygame.K_l,pygame.K_u,pygame.K_i,pygame.K_o)    
 pj = Pj(200,360)
 bot = Bot(500,360)
 tempo = "60"
@@ -39,8 +40,13 @@ fps = 60
 timer = pygame.time.Clock()
 run = True
 sec = 0
-
+delay = False
+delay_count = 0
+block = False
+enable = True
+l_pressed = False
 while run:
+    
     # Time manager
     sec += timer.tick(fps)   
     tempo_bend = txt.render(tempo, True, black)

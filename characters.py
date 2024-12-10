@@ -40,8 +40,9 @@ class Pj():
         if key[pygame.K_a] and self.attackingCheck==False:
             dx-=SPEED
 
-        if key[pygame.K_d] and self.attackingCheck==False:
-            dx+=SPEED
+            if key[pygame.K_d] and self.attacking_check==False:
+                dx+=SPEED
+
 
         # Jump if the jump key is pressed and the player is not already jumping
         if key[pygame.K_w] and self.jump==False:
@@ -82,6 +83,19 @@ class Pj():
         self.rect.x += dx
         self.rect.y += dy
         
+    def attacks(self, keys, screen, target):
+        
+        self.block = True
+
+        if keys >=106 and keys <=108:     
+            
+            dmg = keys-105
+            self.attack_lowkick(screen, (200,0,0), target,dmg)
+            self.attacking_check = True
+        else:
+            self.attack_punch(screen, (200,0,0), target)
+            self.attacking_check = True       
+                
         
        
     def attack_lowkick(self, screen, color, target):
