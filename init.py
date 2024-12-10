@@ -4,10 +4,11 @@ from bot import Bot
 
 pygame.init()
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
 
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Juego de Peleas")
 
 #load resources
@@ -52,34 +53,8 @@ while run:
     #Drawing
     draw_bg()
 
-    #Player control
-    
-    for event in pygame.event.get():
-        
-        if event.type == pygame.QUIT:
-            run = False
-            
-        if event.type == pygame.KEYDOWN:
-            
-            ev_k = event.key
-            if ev_k == attks[0] or ev_k == attks[1] or ev_k == attks[2] or ev_k == attks[3] or ev_k == attks[4] or ev_k == attks[5] and enable==True:
-               delay = True
-               llave = ev_k
-
-    if delay == True:   
-        delay_count += 16    
-        if delay_count < 200:        
-            enable = False
-            pj.attacks(llave,screen, bot)
-            pj.block = True
-        else:
-            pj.attacking_check = False
-            delay = False   
-            delay_count = 0
-            pj.block = False
-            enable = True 
-
-    pj.move(WINDOW_WIDTH, WINDOW_HEIGHT, screen, bot)
+    #P;ayer control
+    pj.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, bot)
     pj.draw(screen)
 
     #Bot control
